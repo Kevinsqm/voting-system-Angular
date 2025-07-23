@@ -1,0 +1,27 @@
+<h1 class="text-center text-3xl my-3">Candidates</h1>
+
+<div class="min-w-lg max-w-3xl mx-auto">
+    <div class="overflow-x-auto rounded-box border border-base-content/5 bg-base-100">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Party</th>
+                    <th>Votes</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (candidate of resource.value(); track candidate.id) {
+                <tr>
+                    <td>{{candidate.name}}</td>
+                    <td>{{candidate.party}}</td>
+                    <td>{{candidate.votes}}</td>
+                    <td>
+                        <button (click)="deleteCandidate(candidate.id)" class="btn btn-error">Delete</button>
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

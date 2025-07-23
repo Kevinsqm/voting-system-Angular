@@ -1,0 +1,44 @@
+<div class="w-sm pb-3 border border-[#464E57] rounded-md flex flex-col">
+    <h2 class="text-3xl text-center my-2">Register</h2>
+
+    <form class="flex flex-col items-center" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+        <label class="input mb-1">
+            <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <g stroke-linejoin="round" stroke-linecap="round" stroke-width="2.5" fill="none" stroke="currentColor">
+                    <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                </g>
+            </svg>
+            <input formControlName="email" type="email" placeholder="user@example.com"
+                title="Only letters, numbers or dash" />
+        </label>
+        @if (registerForm.controls['email'].invalid && registerForm.controls["email"].touched) {
+        <span class="text-red-600 mb-3">{{getValidationErrors('email')}}</span>
+        }
+        <label class="input mb-1">
+            <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <g stroke-linejoin="round" stroke-linecap="round" stroke-width="2.5" fill="none" stroke="currentColor">
+                    <path
+                        d="M2.586 17.414A2 2 0 0 0 2 18.828V21a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h1a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h.172a2 2 0 0 0 1.414-.586l.814-.814a6.5 6.5 0 1 0-4-4z">
+                    </path>
+                    <circle cx="16.5" cy="7.5" r=".5" fill="currentColor"></circle>
+                </g>
+            </svg>
+            <input formControlName="password" type="password" placeholder="Password"
+                title="Must be more than 8 characters, including number, lowercase letter, uppercase letter" />
+        </label>
+        @if(registerForm.controls["password"].invalid && registerForm.controls["password"].touched) {
+        <span class="text-red-600 mb-3">{{getValidationErrors('password')}}</span>
+        }
+        <select class="select mb-3" formControlName="role_id">
+            <option disabled selected>Select the user type</option>
+            <option value="1">Candidate</option>
+            <option value="2">Voter</option>
+        </select>
+        @if(registerForm.controls["role_id"].invalid && registerForm.controls["role_id"].touched) {
+        <span class="text-red-600">{{getValidationErrors('role_id')}}</span>
+        }
+        <input type="submit" value="Register" class="btn btn-secondary" />
+    </form>
+
+</div>

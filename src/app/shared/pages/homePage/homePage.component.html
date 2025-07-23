@@ -1,0 +1,49 @@
+<div class="w-5/6 mx-auto">
+    <h2 class="text-3xl text-center my-4">Welcome, {{userName}}</h2>
+
+    <div class="card w-full bg-[#181E24] card-lg shadow-sm mb-4">
+        <div class="card-body">
+            <h2 class="card-title">What is the Online Voting System?</h2>
+            <p>
+                This system allows you to participate in electoral processes from anywhere with an internet connection.
+                We
+                guarantee transparency, security, and ease of use.
+            </p>
+            <p>
+                Whether you're a voter, candidate, or administrator, you'll find all the tools you need here to actively
+                participate in the democratic process.
+            </p>
+        </div>
+    </div>
+
+    @if(userType == "CANDIDATE"){
+    <app-candidate-home />
+    }
+    @else if (userType == "VOTER") {
+    <app-voter-home />
+    }
+
+
+    <!-- Frequently asked question -->
+    <div class="card w-full bg-[#181E24] card-lg shadow-sm">
+        <div class="card-body">
+            <h2 class="card-title">Frequently asked question</h2>
+            <ul>
+                <li>
+                    <strong>Is my vote anonymous?</strong>
+                    <p>Yes. The system guarantees anonymity and confidentiality throughout the entire process.</p>
+                </li>
+                <li>
+                    <strong>What happens if I close the page during voting?</strong>
+                    <p>Your vote will only be saved if you confirm it. If you leave before confirming, it will not be
+                        registered.</p>
+                </li>
+                <li>
+                    <strong>Can I vote more than once?</strong>
+                    <p>No. You can only cast one vote per election, and the system will automatically monitor this.</p>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+</div>

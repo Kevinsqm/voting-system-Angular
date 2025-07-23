@@ -1,0 +1,15 @@
+<h2 class="text-3xl text-center my-4">Update Candidate</h2>
+
+<form class="flex flex-col items-center" [formGroup]="updateCandidateForm" (ngSubmit)="onSubmit()">
+    <label class="input mb-2">
+        <input formControlName="name" type="text" placeholder="Name" />
+    </label>
+    <span class="text-red-500">{{getValidationErrors("name")}}</span>
+
+    <label class="input mb-2">
+        <input formControlName="party" type="text" placeholder="Party" />
+    </label>
+    <span class="text-red-500">{{getValidationErrors("party")}}</span>
+
+    <input type="submit" value="Update" class="btn btn-secondary" />
+</form>

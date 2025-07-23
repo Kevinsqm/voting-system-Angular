@@ -1,0 +1,29 @@
+<h1 class="text-center text-3xl my-3">Voters</h1>
+
+<div class="min-w-lg max-w-3xl mx-auto">
+    <div class="overflow-x-auto rounded-box border border-base-content/5 bg-base-100">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID Card</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Has voted</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (voter of resource.value(); track voter.id) {
+                <tr>
+                    <td>{{voter.id_card}}</td>
+                    <td>{{voter.name}}</td>
+                    <td>{{voter.email}}</td>
+                    <td>{{voter.has_voted ? "Yes" : "No"}}</td>
+                    <td>
+                        <button (click)="deleteVoter(voter.id)" class="btn btn-error">Delete</button>
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

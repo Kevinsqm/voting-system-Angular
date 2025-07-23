@@ -1,0 +1,44 @@
+<div class="w-sm pb-3 border border-[#464E57] rounded-md flex flex-col">
+    <h2 class="text-3xl text-center my-2">Login</h2>
+
+    <form class="flex flex-col items-center" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <label class="input mb-1">
+            <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <g stroke-linejoin="round" stroke-linecap="round" stroke-width="2.5" fill="none" stroke="currentColor">
+                    <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                </g>
+            </svg>
+            <input formControlName="email" type="email" placeholder="email" title="Enter your email" />
+        </label>
+        <span class="text-red-600 mb-3">{{getValidationErrors("email")}}</span>
+
+        <label class="input mb-1">
+            <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <g stroke-linejoin="round" stroke-linecap="round" stroke-width="2.5" fill="none" stroke="currentColor">
+                    <path
+                        d="M2.586 17.414A2 2 0 0 0 2 18.828V21a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h1a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h.172a2 2 0 0 0 1.414-.586l.814-.814a6.5 6.5 0 1 0-4-4z">
+                    </path>
+                    <circle cx="16.5" cy="7.5" r=".5" fill="currentColor"></circle>
+                </g>
+            </svg>
+            <input formControlName="password" type="password" placeholder="Password"
+                title="Must be more than 8 characters, including number, lowercase letter, uppercase letter" />
+        </label>
+        <span class="text-red-600 mb-3">{{getValidationErrors("password")}}</span>
+
+        @if(hasError()){
+        <div role="alert" class="alert alert-error mb-3 fadeIn" id="myAlert">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 shrink-0 stroke-current" fill="none"
+                viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <span>{{errorMessage}}</span>
+        </div>
+        }
+
+        <input type="submit" value="Login" class="btn btn-secondary" />
+    </form>
+
+</div>

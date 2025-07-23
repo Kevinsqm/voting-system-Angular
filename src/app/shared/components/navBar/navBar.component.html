@@ -1,0 +1,28 @@
+<div class="navbar bg-base-100 shadow-sm">
+    <div class="flex-1">
+        <a class="btn btn-ghost text-xl" routerLink="/">Online voting system</a>
+    </div>
+    <div class="flex-none">
+        <ul class="menu menu-horizontal items-center px-1">
+
+            @if (status === "Authenticated") {
+
+            <div class="badge badge-secondary mr-1">{{ userType | titlecase}}</div>
+
+            <li>
+                <details>
+                    <summary>{{userName}}</summary>
+                    <ul class="bg-base-100 rounded-t-none p-2">
+                        <li><a>Account</a></li>
+                        <li><a (click)="logout()">Logout</a></li>
+                    </ul>
+                </details>
+            </li>
+            }
+            @else {
+            <li><a routerLink="/auth/login">Login</a></li>
+            <li><a routerLink="/auth/register">Register</a></li>
+            }
+        </ul>
+    </div>
+</div>

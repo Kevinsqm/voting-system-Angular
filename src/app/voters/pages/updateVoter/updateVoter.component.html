@@ -1,0 +1,15 @@
+<h2 class="text-3xl text-center my-4">Update voter</h2>
+
+<form class="flex flex-col items-center" [formGroup]="voterForm" (ngSubmit)="onSubmit()">
+    <label class="input mb-2">
+        <input formControlName="name" type="text" placeholder="Name" />
+    </label>
+    <span class="text-red-500">{{getErrors("name")}}</span>
+
+    <label class="input mb-2">
+        <input formControlName="email" type="email" placeholder="Email" />
+    </label>
+    <span class="text-red-500">{{getErrors("email")}}</span>
+
+    <input type="submit" value="Update" class="btn btn-secondary" />
+</form>
