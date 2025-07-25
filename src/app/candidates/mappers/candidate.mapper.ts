@@ -8,6 +8,7 @@ export class CandidateMapper {
             id: content.id,
             id_card: content.id_card,
             name: content.name,
+            email: content.email,
             party: content.party,
             votes: content.votes
         }

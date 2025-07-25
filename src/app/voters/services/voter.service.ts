@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { VoterResponse, VotersResponse } from '../interfaces/rest-voters.interface';
-import { catchError, map } from 'rxjs';
+import { catchError, map, tap } from 'rxjs';
 import { VoterMapper } from '../mappers/voter.mapper';
 import { CreateVoter, UpdateVoter } from '../interfaces/voter.interface';
 
@@ -23,6 +23,7 @@ export class VoterService {
   getById(id: number) {
     return this.http.get<VoterResponse>(`${this.url}/${id}`)
       .pipe(
+        tap(res => console.log(res)),
         catchError(err => { throw err })
       );
   }

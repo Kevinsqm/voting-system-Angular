@@ -1,9 +1,20 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { Login, Register, UserInfo } from '../interfaces/auth.interface';
+import { Login, Register, Token, UserInfo } from '../interfaces/auth.interface';
 import { catchError, tap } from 'rxjs';
+import { jwtDecode } from 'jwt-decode'
 
-export type Status = "Authenticated" | "Unauthenticated"
+export type Status = "Authenticated" | "Unauthenticated";
+
+export interface JwtPayload {
+  sub: string;
+  roles: string;
+  id: number;
+  personalId: number;
+  name: string;
+  iat: number;
+  exp: number;
+}
 
 @Injectable({
   providedIn: 'root'
@@ -19,12 +30,10 @@ export class AuthService {
   }
 
   postLogin(login: Login) {
-    return this.http.post<UserInfo>(`${this.url}/login`, login)
+    return this.http.post<Token>(`${this.url}/login`, login)
       .pipe(
-        tap(resp => {
-          // this.user = resp;
-          localStorage.setItem("token", resp.token);
-          localStorage.setItem("user", JSON.stringify(resp));
+        tap(token => {
+          localStorage.setItem("token", token.token);
         }),
         catchError(err => { throw err; })
       );
@@ -42,12 +51,24 @@ export class AuthService {
 
   logout() {
     localStorage.removeItem("token");
-    localStorage.removeItem("user");
   }
 
   getRole() {
-    const user = this.getUserInfo();
-    return user.roles[0].slice(5);
+    const user = this.getDecodedToken();
+    return user?.roles.slice(5);
+  }
+
+  getDecodedToken(): JwtPayload | null {
+    const token = localStorage.getItem("token");
+    if (!token)
+      return null;
+
+    try {
+      return jwtDecode<JwtPayload>(token);
+    } catch (err) {
+      console.error("invalid token: ", err);
+      return null;
+    }
   }
 
 }

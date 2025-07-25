@@ -13,9 +13,19 @@ export class NavBarComponent {
 
   private readonly authService = inject(AuthService);
   private readonly router = inject(Router);
-  userName = this.authService.getUserInfo().name;
-  userType = this.authService.getUserInfo().roles[0].slice(5);
+  userName = this.authService.getDecodedToken()?.name;
+  userType = this.authService.getRole();
   status = this.authService.verifyStatus();
+  accountRoute = this.userType == "VOTER"
+    ? "/voter-account"
+    : this.userType == "CANDIDATE"
+      ? "/candidate-account"
+      : "/admin-account";
+
+  // logout() {
+  //   this.authService.logout();
+  //   this.router.navigateByUrl("/auth/login");
+  // }
 
   logout() {
     this.authService.logout();

@@ -6,7 +6,7 @@ export const isAdminGuard: CanMatchFn = (route, segments) => {
   const authService = inject(AuthService);
   const router = inject(Router);
 
-  if (authService.getUserInfo().roles.includes("ROLE_ADMIN"))
+  if (authService.getRole() === "ADMIN")
     return true;
 
   console.log("Access denied: User is not an admin");

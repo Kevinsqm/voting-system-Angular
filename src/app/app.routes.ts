@@ -79,6 +79,16 @@ export const routes: Routes = [
                 canMatch: [isVoterGuard]
             },
             {
+                path: "voter-account",
+                loadComponent: () => import("./voters/pages/voterAccount/voterAccount.component"),
+                canMatch: [isVoterGuard]
+            },
+            {
+                path: "candidate-account",
+                loadComponent: () => import("./candidates/pages/candidateAccount/candidateAccount.component"),
+                canMatch: [isCandidateGuard]
+            },
+            {
                 path: "**",
                 redirectTo: "home"
             }

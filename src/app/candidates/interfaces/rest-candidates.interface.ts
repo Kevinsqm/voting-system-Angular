@@ -16,6 +16,7 @@ export interface Content {
     id: number;
     id_card: number;
     name: string;
+    email: string;
     party: string;
     votes: number;
 }

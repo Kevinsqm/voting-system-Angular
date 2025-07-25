@@ -12,6 +12,8 @@ import { VoterHomeComponent } from '../../../voters/components/voterHome/voterHo
 export class HomePageComponent {
 
   authService = inject(AuthService);
-  userName = this.authService.getUserInfo().name;
-  userType = this.authService.getUserInfo().roles[0].slice(5);
+  userName = this.authService.getDecodedToken()?.name;
+  userType = this.authService.getRole();
+
+
 }

@@ -20,6 +20,10 @@ export class CandidateService {
       )
   }
 
+  getById(id: number) {
+    return this.http.get<Candidate>(`${this.url}/${id}`);
+  }
+
   create(candidate: CreateCandidate) {
     return this.http.post(this.url, candidate);
   }

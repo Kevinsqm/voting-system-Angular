@@ -17,3 +17,7 @@ export interface UserInfo {
     personalId: number;
     roles: string[];
 }
+
+export interface Token {
+    token: string;
+}

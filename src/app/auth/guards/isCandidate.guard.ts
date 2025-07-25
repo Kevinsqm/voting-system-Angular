@@ -5,7 +5,7 @@ import { AuthService } from '../services/auth.service';
 export const isCandidateGuard: CanMatchFn = (route, segments) => {
   const authService = inject(AuthService);
   const router = inject(Router);
-  if (authService.getUserInfo().roles.includes("ROLE_CANDIDATE"))
+  if (authService.getRole() === "CANDIDATE")
     return true;
   return router.createUrlTree(['/access-denied']);
 };
