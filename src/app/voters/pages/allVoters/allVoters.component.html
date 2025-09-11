@@ -19,7 +19,7 @@
                     <td>{{voter.email}}</td>
                     <td>{{voter.has_voted ? "Yes" : "No"}}</td>
                     <td>
-                        <button (click)="deleteVoter(voter.id)" class="btn btn-error">Delete</button>
+                        <button (click)="deleteVoter(voter.id, voter.email)" class="btn btn-error">Delete</button>
                     </td>
                 </tr>
                 }

@@ -1,13 +1,41 @@
-<h2 class="text-2xl text-center mb-4">Vote for your preferred candidate</h2>
+<h2 class="text-2xl text-center my-4">Vote for your preferred candidate</h2>
 
-<div class="w-[65%] mx-auto flex flex-wrap gap-1 justify-center">
-    @for (candidate of resource.value(); track candidate.id) {
-    <div class="card bg-neutral text-neutral-content basis-[24.65%]">
+<!-- <div class="w-[65%] mx-auto flex flex-wrap gap-1 justify-center">
+    @for (candidate of candidatesResource.value(); track candidate.id) {
+    <div class="card bg-base-100 w-56 shadow-sm hover:bg-base-300">
+        <figure class="px-10 pt-10">
+            <img [src]="candidate.photoUrl" alt="photo" class="rounded-xl w-full h-44 object-cover" />
+        </figure>
         <div class="card-body items-center text-center">
             <h2 class="card-title">{{candidate.name}}</h2>
             <p>{{candidate.party}}</p>
-            <div class="card-actions justify-end">
-                <button class="btn btn-primary" (click)="registerVote(candidate.id)">Vote</button>
+            <div class="card-actions">
+                <button class="btn btn-primary"
+                    [swal]="{title: 'Confirmation', text: 'Are you sure you want to vote for this candidate?', showCancelButton: true, icon: 'question'}"
+                    (confirm)="registerVote(candidate.id)">Vote</button>
+            </div>
+        </div>
+    </div>
+    }
+</div> -->
+
+
+<div class="w-[65%] mx-auto flex flex-wrap gap-1 justify-center">
+    @for (candidate of candidatesResource.value(); track candidate.id) {
+    <div class="card bg-base-100 w-48 shadow-sm hover:bg-base-300">
+        <div class="h-44 mx-5 mt-5 relative">
+            <img [src]="candidate.photoUrl" alt="photo" class="rounded-xl w-full h-full object-cover" />
+            @if (candidate.id === votedCandidateId) {
+            <div class="absolute bottom-0 w-full bg-[#4a235ad3] text-center rounded-b-xl font-medium">Your vote</div>
+            }
+        </div>
+        <div class="card-body items-center text-center">
+            <h2 class="card-title">{{candidate.name}}</h2>
+            <p>{{candidate.party}}</p>
+            <div class="card-actions">
+                <button class="btn btn-primary"
+                    [swal]="{title: 'Confirmation', text: 'Are you sure you want to vote for this candidate?', showCancelButton: true, icon: 'question'}"
+                    (confirm)="registerVote(candidate.id)">Vote</button>
             </div>
         </div>
     </div>

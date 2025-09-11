@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { VoteResponse } from '../interfaces/rest-vote.interface';
+import { Content, VoteResponse, VoteStatisticsResponse } from '../interfaces/rest-vote.interface';
 import { map } from 'rxjs';
-import { VoteMapper } from '../mappers/vote.mapper';
+// import { VoteMapper } from '../mappers/vote.mapper';
 import { CreateVote } from '../interfaces/vote.interface';
 
 @Injectable({
@@ -16,8 +16,16 @@ export class VoteService {
   getAll() {
     return this.http.get<VoteResponse>(this.url)
       .pipe(
-        map(vr => VoteMapper.contentArrayToVoteArray(vr.content))
+        map(vr => vr.content)
       )
+  }
+
+  getStatistics() {
+    return this.http.get<VoteStatisticsResponse>(`${this.url}/statistics`)
+  }
+
+  getByVoterId(voterId: number) {
+    return this.http.get<Content>(`${this.url}/voter/${voterId}`);
   }
 
   create(vote: CreateVote) {

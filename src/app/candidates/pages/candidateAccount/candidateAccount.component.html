@@ -1,25 +1,31 @@
 <h2 class="text-xl text-center my-3">My account</h2>
 
-<form class="flex flex-col items-center" [formGroup]="candidateForm" (ngSubmit)="onSubmit()">
-    <label class="input mb-2">
-        <input formControlName="id_card" type="number" placeholder="ID Card" readonly />
-    </label>
-    <span class="text-red-500">{{getErrors("id_card")}}</span>
+<div class="flex flex-col">
+    <img class="account-img mx-auto my-3" [src]="candidatePhoto" alt="photo">
 
-    <label class="input mb-2">
-        <input formControlName="name" type="text" placeholder="Name" />
-    </label>
-    <span class="text-red-500">{{getErrors("name")}}</span>
+    <form class="flex flex-col items-center" [formGroup]="candidateForm" (ngSubmit)="onSubmit()">
 
-    <label class="input mb-2">
-        <input formControlName="email" type="email" placeholder="email" />
-    </label>
-    <span class="text-red-500">{{getErrors("email")}}</span>
+        <input type="file" accept="image/*" class="file-input file-input-sm mb-2" (change)="onFileSelected($event)" />
+        <label class="input mb-2">
+            <input formControlName="id_card" type="number" placeholder="ID Card" readonly />
+        </label>
+        <span class="text-red-500">{{getErrors("id_card")}}</span>
 
-    <label class="input mb-2">
-        <input formControlName="party" type="text" placeholder="party" />
-    </label>
-    <span class="text-red-500">{{getErrors("party")}}</span>
+        <label class="input mb-2">
+            <input formControlName="name" type="text" placeholder="Name" />
+        </label>
+        <span class="text-red-500">{{getErrors("name")}}</span>
 
-    <input type="submit" value="Save" class="btn btn-secondary" />
-</form>
+        <label class="input mb-2">
+            <input formControlName="email" type="email" placeholder="email" />
+        </label>
+        <span class="text-red-500">{{getErrors("email")}}</span>
+
+        <label class="input mb-2">
+            <input formControlName="party" type="text" placeholder="party" />
+        </label>
+        <span class="text-red-500">{{getErrors("party")}}</span>
+
+        <input type="submit" value="Save" class="btn btn-secondary" />
+    </form>
+</div>

@@ -45,33 +45,13 @@ export const routes: Routes = [
                 loadComponent: () => import("./candidates/pages/allCandidates/allCandidates.component")
             },
             {
-                path: "create-candidate",
-                loadComponent: () => import("./candidates/pages/createCandidate/createCandidate.component"),
-                canMatch: [isAdminOrCandidateGuard]
-            },
-            {
-                path: "update-candidate/:id",
-                loadComponent: () => import("./candidates/pages/updateCandidate/updateCandidate.component"),
-                canMatch: [isAdminOrCandidateGuard]
-            },
-            {
                 path: "voters",
                 loadComponent: () => import("./voters/pages/allVoters/allVoters.component"),
                 canMatch: [isAdminGuard]
             },
             {
-                path: "create-voter",
-                loadComponent: () => import("./voters/pages/createVoter/createVoter.component"),
-                canMatch: [isAdminOrVoterGuard]
-            },
-            {
-                path: "update-voter/:id",
-                loadComponent: () => import("./voters/pages/updateVoter/updateVoter.component"),
-                canMatch: [isAdminOrVoterGuard]
-            },
-            {
-                path: "votes",
-                loadComponent: () => import("./votes/pages/allVotes/allVotes.component")
+                path: "results",
+                loadComponent: () => import("./votes/pages/results/results.component")
             },
             {
                 path: "make-your-vote",

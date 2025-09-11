@@ -19,6 +19,7 @@ export interface Content {
     email: string;
     party: string;
     votes: number;
+    photoUrl: string;
 }
 
 export interface Pageable {
@@ -34,4 +35,9 @@ export interface Sort {
     sorted: boolean;
     unsorted: boolean;
     empty: boolean;
+}
+
+
+export interface ExistsByIdCardResponse {
+    exists: boolean;
 }

@@ -1,44 +1,128 @@
-<div class="w-sm pb-3 border border-[#464E57] rounded-md flex flex-col">
-    <h2 class="text-3xl text-center my-2">Register</h2>
+<h2 class="text-3xl text-center mb-5">Register</h2>
 
-    <form class="flex flex-col items-center" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-        <label class="input mb-1">
-            <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                <g stroke-linejoin="round" stroke-linecap="round" stroke-width="2.5" fill="none" stroke="currentColor">
-                    <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
-                    <circle cx="12" cy="7" r="4"></circle>
-                </g>
-            </svg>
-            <input formControlName="email" type="email" placeholder="user@example.com"
-                title="Only letters, numbers or dash" />
-        </label>
-        @if (registerForm.controls['email'].invalid && registerForm.controls["email"].touched) {
-        <span class="text-red-600 mb-3">{{getValidationErrors('email')}}</span>
-        }
-        <label class="input mb-1">
-            <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                <g stroke-linejoin="round" stroke-linecap="round" stroke-width="2.5" fill="none" stroke="currentColor">
-                    <path
-                        d="M2.586 17.414A2 2 0 0 0 2 18.828V21a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h1a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h.172a2 2 0 0 0 1.414-.586l.814-.814a6.5 6.5 0 1 0-4-4z">
-                    </path>
-                    <circle cx="16.5" cy="7.5" r=".5" fill="currentColor"></circle>
-                </g>
-            </svg>
-            <input formControlName="password" type="password" placeholder="Password"
-                title="Must be more than 8 characters, including number, lowercase letter, uppercase letter" />
-        </label>
-        @if(registerForm.controls["password"].invalid && registerForm.controls["password"].touched) {
-        <span class="text-red-600 mb-3">{{getValidationErrors('password')}}</span>
-        }
-        <select class="select mb-3" formControlName="role_id">
-            <option disabled selected>Select the user type</option>
-            <option value="1">Candidate</option>
-            <option value="2">Voter</option>
-        </select>
-        @if(registerForm.controls["role_id"].invalid && registerForm.controls["role_id"].touched) {
-        <span class="text-red-600">{{getValidationErrors('role_id')}}</span>
-        }
-        <input type="submit" value="Register" class="btn btn-secondary" />
-    </form>
+<div class="tabs tabs-lift">
+    <input type="radio" name="my_tabs_3" class="tab" aria-label="As voter" />
+    <div class="tab-content bg-base-100 border-base-300 p-6">
+        <form class="flex flex-col items-center" [formGroup]="voterRegisterForm" (ngSubmit)="onSubmitVoter()">
+            <label class="input mb-1">
+                <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <g stroke-linejoin="round" stroke-linecap="round" stroke-width="2.5" fill="none"
+                        stroke="currentColor">
+                        <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                    </g>
+                </svg>
+                <input formControlName="email" type="email" placeholder="user@example.com"
+                    title="Only letters, numbers or dash" />
+            </label>
+            <span class="text-red-600">{{getValidationErrorsVoter("email")}}</span>
 
+            <label class="input mb-1">
+                <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <g stroke-linejoin="round" stroke-linecap="round" stroke-width="2.5" fill="none"
+                        stroke="currentColor">
+                        <path
+                            d="M2.586 17.414A2 2 0 0 0 2 18.828V21a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h1a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h.172a2 2 0 0 0 1.414-.586l.814-.814a6.5 6.5 0 1 0-4-4z">
+                        </path>
+                        <circle cx="16.5" cy="7.5" r=".5" fill="currentColor"></circle>
+                    </g>
+                </svg>
+                <input formControlName="password" type="password" placeholder="Password"
+                    title="Must be more than 8 characters, including number, lowercase letter, uppercase letter" />
+            </label>
+            <span class="text-red-600">{{getValidationErrorsVoter("password")}}</span>
+            <label class="input mb-1">
+                <input formControlName="id_card" type="number" placeholder="ID Card" />
+                @if (voterRegisterForm.controls['id_card'].pending) {
+                <span class="loading loading-spinner loading-xs"></span>
+                }
+            </label>
+            <span class="text-red-600">{{getValidationErrorsVoter("id_card")}}</span>
+            <label class="input mb-1">
+                <input formControlName="name" type="text" placeholder="name" />
+            </label>
+            <span class="text-red-600">{{getValidationErrorsVoter("name")}}</span>
+
+            @if(hasError()){
+            <div role="alert" class="alert alert-error mb-3 fadeIn" id="myAlert">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 shrink-0 stroke-current" fill="none"
+                    viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <span>{{errorMessage}}</span>
+            </div>
+            }
+
+            <input type="submit" value="Register" class="btn btn-secondary"
+                [disabled]="voterRegisterForm.controls['id_card'].pending" />
+        </form>
+    </div>
+
+    <input type="radio" name="my_tabs_3" class="tab" aria-label="As Candidate" checked="checked" />
+    <div class="tab-content bg-base-100 border-base-300 p-6">
+        <form class="flex flex-col items-center" [formGroup]="candidateRegisterForm" (ngSubmit)="onSubmitCandidate()">
+            <label class="input mb-1">
+                <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <g stroke-linejoin="round" stroke-linecap="round" stroke-width="2.5" fill="none"
+                        stroke="currentColor">
+                        <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                    </g>
+                </svg>
+                <input formControlName="email" type="email" placeholder="user@example.com"
+                    title="Only letters, numbers or dash" />
+            </label>
+            <span class="text-red-600">{{getValidationErrorsCandidate("email")}}</span>
+
+            <label class="input mb-1">
+                <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <g stroke-linejoin="round" stroke-linecap="round" stroke-width="2.5" fill="none"
+                        stroke="currentColor">
+                        <path
+                            d="M2.586 17.414A2 2 0 0 0 2 18.828V21a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h1a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h.172a2 2 0 0 0 1.414-.586l.814-.814a6.5 6.5 0 1 0-4-4z">
+                        </path>
+                        <circle cx="16.5" cy="7.5" r=".5" fill="currentColor"></circle>
+                    </g>
+                </svg>
+                <input formControlName="password" type="password" placeholder="Password"
+                    title="Must be more than 8 characters, including number, lowercase letter, uppercase letter" />
+            </label>
+            <span class="text-red-600">{{getValidationErrorsCandidate("password")}}</span>
+            <label class="input mb-1">
+                <input formControlName="id_card" type="number" placeholder="ID Card" />
+                @if (candidateRegisterForm.controls['id_card'].pending) {
+                <span class="loading loading-spinner loading-xs"></span>
+                }
+            </label>
+            <span class="text-red-600">{{getValidationErrorsCandidate("id_card")}}</span>
+            <label class="input mb-1">
+                <input formControlName="name" type="text" placeholder="name" />
+            </label>
+            <span class="text-red-600">{{getValidationErrorsCandidate("name")}}</span>
+            <label class="input mb-1">
+                <input formControlName="party" type="text" placeholder="party" />
+            </label>
+            <span class="text-red-600">{{getValidationErrorsCandidate("party")}}</span>
+
+            @if(hasError()){
+            <div role="alert" class="alert alert-error mb-3 fadeIn" id="myAlert">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 shrink-0 stroke-current" fill="none"
+                    viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <span>{{errorMessage}}</span>
+            </div>
+            }
+
+            <input type="submit" value="Register" class="btn btn-secondary"
+                [disabled]="candidateRegisterForm.controls['id_card'].pending" />
+        </form>
+    </div>
+</div>
+
+<div class="mt-4 text-center">
+    <span class="mt-5">Already have an account? <a class="text-blue-600 hover:underline" routerLink="/auth/login">Sign
+            in</a></span>
 </div>

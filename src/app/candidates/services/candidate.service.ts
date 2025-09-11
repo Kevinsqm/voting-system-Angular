@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { map, Observable } from 'rxjs';
-import { CandidatesResponse } from '../interfaces/rest-candidates.interface';
+import { catchError, map, Observable } from 'rxjs';
+import { CandidatesResponse, ExistsByIdCardResponse } from '../interfaces/rest-candidates.interface';
 import { Candidate, CreateCandidate, UpdateCandidate } from '../interfaces/candidate.interface';
 import { CandidateMapper } from '../mappers/candidate.mapper';
 
@@ -24,6 +24,13 @@ export class CandidateService {
     return this.http.get<Candidate>(`${this.url}/${id}`);
   }
 
+  checkIfIdCardExists(idCard: number) {
+    return this.http.get<ExistsByIdCardResponse>(`${this.url}/idCard/${idCard}`)
+      .pipe(
+        map(res => res.exists)
+      );
+  }
+
   create(candidate: CreateCandidate) {
     return this.http.post(this.url, candidate);
   }
@@ -34,6 +41,15 @@ export class CandidateService {
 
   delete(id: number) {
     return this.http.delete(`${this.url}/${id}`);
+  }
+
+  uploadPhoto(file: File, candidateId: number) {
+    const formData = new FormData();
+    formData.append('file', file);
+    return this.http.put(`${this.url}/${candidateId}/update-photo`, formData)
+      .pipe(
+        catchError(err => { throw err })
+      );
   }
 
 }

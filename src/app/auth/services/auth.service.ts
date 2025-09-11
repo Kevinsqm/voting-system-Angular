@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { Login, Register, Token, UserInfo } from '../interfaces/auth.interface';
-import { catchError, tap } from 'rxjs';
+import { IsTokenValid, Login, Register, Token, UserInfo } from '../interfaces/auth.interface';
+import { catchError, map, Observable, tap } from 'rxjs';
 import { jwtDecode } from 'jwt-decode'
 
 export type Status = "Authenticated" | "Unauthenticated";
@@ -39,14 +39,24 @@ export class AuthService {
       );
   }
 
-  verifyStatus(): Status {
-    const token = localStorage.getItem("token");
-    return token ? "Authenticated" : "Unauthenticated";
+  isTokenValid() {
+    return this.http.get<IsTokenValid>(`${this.url}/is-token-valid`, {
+      headers: {
+        "Token": localStorage.getItem("token") || ""
+      }
+    }).pipe(
+      map(res => res.valid),
+      tap(res => console.log(res))
+    );
   }
 
-  getUserInfo() {
-    const user: UserInfo = JSON.parse(localStorage.getItem("user") || "{}");
-    return user;
+  verifyStatus(): Observable<Status> {
+    return this.isTokenValid().pipe(
+      map(res => {
+        const payload = this.getDecodedToken();
+        return payload && res === true ? "Authenticated" : "Unauthenticated"
+      })
+    );
   }
 
   logout() {
@@ -70,5 +80,7 @@ export class AuthService {
       return null;
     }
   }
+
+
 
 }

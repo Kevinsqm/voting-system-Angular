@@ -1,5 +1,5 @@
 <div class="w-sm pb-3 border border-[#464E57] rounded-md flex flex-col">
-    <h2 class="text-3xl text-center my-2">Login</h2>
+    <h2 class="text-3xl text-center my-2">Log In</h2>
 
     <form class="flex flex-col items-center" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
         <label class="input mb-1">
@@ -38,7 +38,10 @@
         </div>
         }
 
-        <input type="submit" value="Login" class="btn btn-secondary" />
+        <span class="mb-3">Don't have an account? <a class="text-blue-600 hover:underline"
+                routerLink="/auth/register">Register here</a></span>
+
+        <input type="submit" value="Log in" class="btn btn-secondary" />
     </form>
 
 </div>

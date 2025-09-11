@@ -10,7 +10,8 @@ export class CandidateMapper {
             name: content.name,
             email: content.email,
             party: content.party,
-            votes: content.votes
+            votes: content.votes,
+            photoUrl: content.photoUrl
         }
     }
 

@@ -42,3 +42,7 @@ export interface Sort {
     sorted: boolean;
     unsorted: boolean;
 }
+
+export interface ExistsByIdCardResponse {
+    exists: boolean;
+}

@@ -16,9 +16,12 @@
                     <td>{{candidate.name}}</td>
                     <td>{{candidate.party}}</td>
                     <td>{{candidate.votes}}</td>
+                    @if (userType === "ADMIN") {
                     <td>
-                        <button (click)="deleteCandidate(candidate.id)" class="btn btn-error">Delete</button>
+                        <button (click)="deleteCandidate(candidate.id, candidate.email)"
+                            class="btn btn-error">Delete</button>
                     </td>
+                    }
                 </tr>
                 }
             </tbody>

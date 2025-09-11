@@ -1,11 +1,11 @@
 import { Component, inject, signal } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-login',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, RouterLink],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
 })
@@ -40,11 +40,10 @@ export default class LoginComponent {
       return;
     }
 
+    localStorage.removeItem("token");
+
     this.authService.postLogin(this.loginForm.value).subscribe({
-      next: response => {
-        console.log(response);
-        this.router.navigateByUrl('/home');
-      },
+      next: response => this.router.navigateByUrl('/home'),
       error: err => {
         this.errorMessage = err.error.detail;
         this.hasError.set(true);

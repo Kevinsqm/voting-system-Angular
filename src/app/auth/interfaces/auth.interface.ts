@@ -21,3 +21,7 @@ export interface UserInfo {
 export interface Token {
     token: string;
 }
+
+export interface IsTokenValid {
+    valid: boolean;
+}

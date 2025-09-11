@@ -3,6 +3,7 @@ import { rxResource } from '@angular/core/rxjs-interop';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { VoterService } from '../../services/voter.service';
 import { AuthService } from '../../../auth/services/auth.service';
+import { UpdateVoter } from '../../interfaces/voter.interface';
 
 @Component({
   selector: 'app-voter-account',
@@ -37,6 +38,24 @@ export default class VoterAccountComponent implements OnInit {
 
   onSubmit() {
 
+    if (this.voterForm.invalid) {
+      this.voterForm.markAllAsTouched();
+      return;
+    }
+
+    const voter: UpdateVoter = {
+      email: this.voterForm.value.email!,
+      name: this.voterForm.value.name!
+    }
+
+    this.voterService.update(voter, this.voterId).subscribe({
+      next: () => {
+        console.log("Voter updated");
+      },
+      error: (err) => {
+        console.log(err);
+      }
+    });
   }
 
   getErrors(controlName: string) {
