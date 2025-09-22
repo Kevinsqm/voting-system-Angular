@@ -52,4 +52,11 @@ export class CandidateService {
       );
   }
 
+  getByName(name: string) {
+    return this.http.get<Candidate[]>(`${this.url}/by-name?name=${name}`)
+      .pipe(
+        catchError(err => { throw err })
+      );
+  }
+
 }

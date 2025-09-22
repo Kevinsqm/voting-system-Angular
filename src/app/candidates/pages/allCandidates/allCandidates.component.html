@@ -1,6 +1,8 @@
 <h1 class="text-center text-3xl my-3">Candidates</h1>
 
 <div class="min-w-lg max-w-3xl mx-auto">
+    <input type="text" (keyup)="searchInput.set(searchCandidate.value)" #searchCandidate placeholder="Buscar por nombre"
+        class="input mb-2">
     <div class="overflow-x-auto rounded-box border border-base-content/5 bg-base-100">
         <table class="table">
             <thead>
