@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { catchError, map, Observable } from 'rxjs';
+import { catchError, map, Observable, of, tap } from 'rxjs';
 import { CandidatesResponse, ExistsByIdCardResponse } from '../interfaces/rest-candidates.interface';
 import { Candidate, CreateCandidate, UpdateCandidate } from '../interfaces/candidate.interface';
 import { CandidateMapper } from '../mappers/candidate.mapper';
@@ -12,6 +12,8 @@ export class CandidateService {
 
   private http = inject(HttpClient);
   private url = "http://localhost:8080/api/v1/candidates";
+
+  private getByNameCache = new Map<string, Candidate[]>();
 
   getAll(): Observable<Candidate[]> {
     return this.http.get<CandidatesResponse>(this.url)
@@ -53,8 +55,12 @@ export class CandidateService {
   }
 
   getByName(name: string) {
+    if (this.getByNameCache.has(name)) {
+      return of(this.getByNameCache.get(name)!)
+    }
     return this.http.get<Candidate[]>(`${this.url}/by-name?name=${name}`)
       .pipe(
+        tap(res => this.getByNameCache.set(name, res)),
         catchError(err => { throw err })
       );
   }
