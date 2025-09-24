@@ -40,12 +40,7 @@ export default class AllCandidatesComponent {
 
   resource = rxResource({
     request: this.request,
-    loader: () => {
-      if (this.request().query == "")
-        return this.candidateService.getAll()
-      else
-        return this.candidateService.getByName(this.request().query);
-    }
+    loader: () => this.candidateService.getAll(this.request().query)
   })
 
   deleteCandidate(id: number, email: string) {

@@ -15,7 +15,17 @@ export class CandidateService {
 
   private getByNameCache = new Map<string, Candidate[]>();
 
-  getAll(): Observable<Candidate[]> {
+  getAll(name?: string): Observable<Candidate[]> {
+    if (name && name !== '') {
+      if (this.getByNameCache.has(name))
+        return of(this.getByNameCache.get(name)!)
+      return this.http.get<CandidatesResponse>(`${this.url}?name=${name}`)
+        .pipe(
+          map(cr => CandidateMapper.toCandidatesArray(cr.content)),
+          tap(res => this.getByNameCache.set(name, res)),
+          catchError(err => { throw err })
+        );
+    }
     return this.http.get<CandidatesResponse>(this.url)
       .pipe(
         map(cr => CandidateMapper.toCandidatesArray(cr.content))
